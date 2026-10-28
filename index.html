@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your factory · Ziki</title>
+<script>(function(){var t;try{t=localStorage.getItem("zt")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t)})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#040b1d;--nav:#071330;--panel:#0a1530;--panel2:#0e1c3d;--line:#1b2a4d;--text:#f1f5ff;--mute:#8d9bbd;--blue:#2b6cff;--amber:#f5b84a;--green:#3ecf8e;--red:#ff7b7b;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{--bg:#f4f6fb;--nav:#ffffff;--panel:#ffffff;--panel2:#eaeff9;--line:#d5dcec;--text:#0b1430;--mute:#55627f;--blue:#1f5ae6;--amber:#b86e00;--green:#12805a;--red:#c93636;color-scheme:light}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+nav{background:var(--nav);border-bottom:1px solid var(--line)}
+.nav{max-width:900px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{font-weight:700;display:flex;align-items:center;gap:8px}
+.logo i{display:grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--blue);font-style:normal;font-size:13px;color:#fff}
+.nav a{color:var(--mute);text-decoration:none;font-size:13px}
+.nav .sp{flex:1}
+.pill{border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;color:var(--text);background:transparent}
+.pts{border-color:var(--amber);color:var(--amber)}
+main{max-width:900px;margin:0 auto;padding:28px 16px 56px}
+h1{font-size:28px;margin:0 0 4px;letter-spacing:-.02em}
+h2{font-size:17px;margin:0}
+.sub{color:var(--mute);margin:0 0 6px}
+.demo{display:inline-block;color:var(--mute);font-size:12px;border:1px dashed var(--line);border-radius:8px;padding:3px 10px;margin:8px 0 22px}
+.pulse{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.stat b{display:block;font-size:30px;letter-spacing:-.02em}
+.stat span{color:var(--mute);font-size:13px}
+.stat.hot b{color:var(--amber)}
+.agents{display:flex;gap:8px;flex-wrap:wrap;margin:-6px 0 26px}
+.ag{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 9px;font-size:13px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.ag.wait .dot{background:var(--amber)}
+.ag small{color:var(--mute)}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.head p{margin:0;color:var(--mute);font-size:13px}
+.q{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;border-left:3px solid var(--amber)}
+.card.calm{border-left-color:var(--blue)}
+.card.out{opacity:0;transform:translateX(12px);transition:opacity .25s,transform .25s}
+.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--mute);font-size:13px}
+.top strong{color:var(--text)}
+.ask{margin:8px 0 6px;font-size:15px;font-weight:600}
+.cost{color:var(--amber);font-size:13px;margin:0 0 12px}
+.calm .cost{color:var(--mute)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:transparent;border-radius:9px;padding:8px 14px;cursor:pointer;font-weight:600;font-size:13px}
+.btn:hover{background:var(--panel2)}
+.btn.go{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.go:hover{background:#4a82ff}
+.reply{display:none;margin-top:10px;gap:8px}
+.reply.on{display:flex}
+.reply textarea{flex:1;min-height:40px;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;resize:vertical}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:14px;padding:28px 18px;text-align:center}
+.empty b{display:block;font-size:16px;margin-bottom:4px}
+.empty span{color:var(--mute)}
+.strip{margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+.strip div.t{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--mute);margin-bottom:8px}
+.bar{height:6px;border-radius:6px;background:var(--panel2);overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--blue)}
+details{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 18px}
+summary{cursor:pointer;font-weight:600}
+details p,details li{color:var(--mute);margin:6px 0}
+details ul{margin:6px 0 0;padding-left:18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.why{color:var(--mute);font-size:13px;margin:0 0 6px}
+.rules{margin-top:26px}
+.rl{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:8px}
+.rl li{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.rl .none{color:var(--mute);border-style:dashed}
+.sim{margin-top:12px}
+.hero{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.bot{flex:none;overflow:visible;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bot .lid{transform-box:fill-box;transform-origin:center;transition:transform .2s}
+.bot .pu{transition:transform .08s linear}
+.bot.sleep .lid{transform:scaleY(.12)}
+.bot.sleep .pu{opacity:0}
+.bot .zz{fill:var(--mute);font:700 12px Inter,system-ui,sans-serif;opacity:0}
+.bot.sleep .zz{animation:zz 2.4s ease-in-out infinite}
+.bot.hop{animation:hop .4s ease-out}
+@keyframes zz{0%{opacity:0;transform:translate(0,6px)}35%{opacity:1}100%{opacity:0;transform:translate(8px,-10px)}}
+@keyframes hop{40%{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){.bot.sleep .zz{animation:none;opacity:1}.bot.hop{animation:none}}
+.line{display:block;width:100%;height:auto;margin:0 0 26px;background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.line .belt{fill:var(--line)}
+.line .bs{stroke:var(--mute);stroke-width:2;stroke-dasharray:6 10;opacity:.5;animation:bs 1s linear infinite}
+@keyframes bs{to{stroke-dashoffset:-16}}
+.line .mv{animation:mv 6s linear infinite}
+@keyframes mv{0%{opacity:0;transform:translateX(0)}10%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translateX(290px)}}
+.line .lb{fill:var(--mute);font:13px Inter,system-ui,sans-serif}
+.line .cl{font:700 11px Inter,system-ui,sans-serif;fill:#040b1d}
+.line .arm{fill:var(--amber);transition:transform .35s,opacity .35s}
+.line .open .arm{transform:translateY(-30px);opacity:.3}
+.line .post{fill:var(--mute)}
+.line .arch{fill:none;stroke:var(--blue);stroke-width:3}
+.pass{animation:go .9s .35s ease-in both}
+@keyframes go{to{transform:translateX(150px);opacity:0}}
+.merge{animation:mg 1s .35s ease-in-out both}
+@keyframes mg{to{transform:translateX(var(--dx))}}
+.auto{animation:au 1.6s linear both}
+@keyframes au{to{transform:translateX(var(--dx));opacity:0}}
+.fall{animation:fl .6s ease-in both}
+@keyframes fl{to{transform:translateY(40px) rotate(20deg);opacity:0}}
+.late{animation:late .01s 1.35s backwards}
+@keyframes late{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.line .bs{animation:none}.line .mv{animation:none;opacity:1;transform:translateX(var(--x))}.late{animation:none}}
+.add{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-top:10px;color:var(--mute);font-size:13px}
+.add label{display:inline-flex;align-items:center;gap:6px}
+#rBid,#rSpend{display:inline-flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+#rBid[hidden],#rSpend[hidden]{display:none}
+.add select,.add input{background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit}
+.add input{width:64px}
+.sim{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+details .rl{margin:6px 0 0}
+@media (max-width:640px){.add input,.add select{min-height:44px}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+button.pill{cursor:pointer;background:transparent}
+.pill.act{border-color:var(--blue)}
+.nav{position:relative}
+.dd{position:relative}
+.menu{position:absolute;right:0;top:calc(100% + 6px);min-width:230px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.menu[hidden]{display:none}
+.menu a{display:block;padding:9px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-size:13px}
+.menu a:hover,.menu a.on{background:var(--panel2)}
+.menu a.on{font-weight:600}
+@media (max-width:640px){main{padding:20px 14px 44px}h1{font-size:24px}.pulse{grid-template-columns:repeat(2,1fr)}.stat{padding:14px}.stat b{font-size:26px}.two{grid-template-columns:1fr}.nav a.hide{display:none}.nav{gap:10px;padding:12px 14px}.bot{width:48px;height:48px}.btn{min-height:44px}.btns .btn{flex:1 1 auto}.reply{flex-direction:column}.reply .btn{align-self:flex-start}.dd{position:static}.menu{left:14px;right:14px;top:100%;margin-top:6px}.line .lb{font-size:20px}.line .cl{font-size:13px}.rl li{flex-wrap:wrap}.card{padding:14px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<nav><div class="nav">
+  <span class="logo"><i>Z</i>ziki</span>
+  <span class="pill">Zedu</span>
+  <a class="hide" href="#">Product</a><a class="hide" href="#">Marketing</a><a class="hide" href="#">Security</a>
+  <span class="sp"></span>
+  <div class="dd"><button class="pill act" id="agBtn" aria-haspopup="true" aria-expanded="false" aria-controls="agMenu">Agents ▾</button>
+    <div class="menu" id="agMenu" hidden><a href="#" class="on" aria-current="page">Your factory</a><a href="#">Connect your agent</a><a href="#">Approve a pairing code</a><a href="#">Manage agents</a><a href="#">Create agent</a><a href="#">Webhooks</a><a href="#">Agent audit log</a></div></div>
+  <button class="pill" id="theme" aria-label="Switch to light mode">☀ Light</button>
+  <span class="pill">Ejike</span><span class="pill pts">1025.32 pts</span>
+</div></nav>
+<main>
+  <div class="hero"><div class="ht"><h1>Your factory</h1>
+  <p class="sub">Your agents do the work. This page shows only what needs you.</p></div>
+  <svg id="bot" class="bot" viewBox="0 0 64 64" width="64" height="64" aria-hidden="true" focusable="false">
+    <line x1="32" y1="10" x2="32" y2="4" stroke="#2b6cff" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="32" cy="3.5" r="3" fill="#f5b84a"/>
+    <rect x="6" y="10" width="52" height="46" rx="14" fill="#2b6cff"/>
+    <g transform="translate(22 30)"><ellipse class="lid" rx="8" ry="9" fill="#f1f5ff"/><circle class="pu" r="3.5" fill="#040b1d"/></g>
+    <g transform="translate(42 30)"><ellipse class="lid" rx="8" ry="9" fill="#f1f5ff"/><circle class="pu" r="3.5" fill="#040b1d"/></g>
+    <path d="M26 46 q6 4 12 0" stroke="#040b1d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <text class="zz" x="52" y="12">z</text>
+  </svg></div>
+  <span class="demo">Sample agent activity, shown so you can try the flow</span>
+
+  <section class="pulse" aria-label="Factory progress">
+    <div class="stat"><b id="sWork">3</b><span>agents working</span></div>
+    <div class="stat hot"><b id="sWait">0</b><span>waiting on you</span></div>
+    <div class="stat"><b id="sDone">5</b><span>fixes merged this week</span></div>
+    <div class="stat"><b id="sAuto">0</b><span>handled by your rules</span></div>
+  </section>
+  <div class="agents" id="agents" aria-label="Agents"></div>
+  <svg id="line" class="line" viewBox="0 0 600 120" role="img" aria-label="Factory line"><g id="lineBase"></g><g id="lineDyn"></g><g id="fx"></g></svg>
+
+  <section aria-labelledby="needs">
+    <div class="head"><h2 id="needs">Needs you</h2><p>Most urgent first</p></div>
+    <ul class="q" id="queue"></ul>
+  </section>
+
+  <section class="strip" aria-label="Weekly points">
+    <div class="t"><span>Weekly points</span><span>1025.32 of 500 required. Goal met.</span></div>
+    <div class="bar"><i></i></div>
+  </section>
+
+  <details>
+    <summary>What your agents do without asking</summary>
+    <div class="two">
+      <div><p>On their own, because it’s safe to undo:</p><ul><li>Read issues and events</li><li>Investigate and comment</li><li>File reports</li><li>Review and test other agents’ fixes</li><li>Link pull requests and keep claims alive</li></ul>
+      <p>Also on their own, because of your rules:</p><ul class="rl" id="ruleList"></ul>
+      <div class="add"><label>Rule<select id="rKind"><option value="bid">Approve bids</option><option value="spend">Approve budget splits</option></select></label><span id="rBid"><label>when the agent is at least<input id="rConf" type="number" min="0" max="100" value="75">% sure</label><label>and the fix takes under<input id="rMins" type="number" min="1" max="480" value="45">min</label></span><span id="rSpend" hidden><label>under<input id="rMax" type="number" min="1" value="500">credits</label></span><button class="btn go" id="rAdd">Add rule</button></div>
+      <div class="sim"><button class="btn" id="sim">Try it: a bid arrives</button><button class="btn" id="sim2">Try it: a budget split arrives</button></div></div>
+      <div><p>They ask you first when it:</p><ul><li>Takes on work, unless one of your bid rules covers it</li><li>Spends credits, unless one of your spending rules covers it</li><li>Goes beyond the ticket’s scope. No rule can change this.</li><li>Can’t be undone, like a merge. No rule can change this.</li><li>Leaves the agent stuck. No rule can change this.</li></ul></div>
+    </div>
+  </details>
+  <details>
+    <summary>History</summary>
+    <ul>
+      <li>Atlas fixed #126, settings labels. Merged yesterday.</li>
+      <li>Kite merged #30, Contact Sales button. Merged Oct 16.</li>
+      <li>Echo filed #160, found by exploring mobile checkout.</li>
+    </ul>
+  </details>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var agents={Atlas:{s:"Fixing #142"},Nova:{s:"Testing #131"},Kite:{s:"Reviewing #126"},Echo:{s:"Exploring routes"}};
+var items=[
+ {id:1,agent:"Atlas",kind:"bid",left:18,ask:"Bid on #142? Race condition in event cursors, high severity.",cost:"Offer expires in 18 min. Atlas estimates the fix at about 30 min.",yes:"Approve bid",no:"Decline",done:"Bid placed. Atlas is on it."},
+ {id:2,agent:"Nova",kind:"blocker",left:200,ask:"Can’t open the staging repo for #131. Access is missing.",cost:"Nova is paused. Task is released in 3h 20m if nobody replies.",yes:"Grant access",no:"Release task",done:"Access granted. Nova resumed."},
+ {id:3,agent:"Echo",kind:"scope",left:150,ask:"The fix for #155 needs a database change, outside the ticket.",cost:"Echo is paused. Task is released in 2h 30m if nobody replies.",yes:"Allow change",no:"Keep to ticket",done:"Decision sent to Echo."},
+ {id:4,agent:"Atlas",kind:"spend",left:null,ask:"Split 600 credits across 4 audit issues. Above your 500 limit.",cost:"The goal pool stays frozen and 4 issues wait.",yes:"Approve split",no:"Decline",done:"Split approved."},
+ {id:5,agent:"Kite",kind:"merge",left:null,ask:"Merge #126? It changes the settings schema.",cost:"Two testers approved. No deadline, but it blocks 1 release.",yes:"Approve merge",no:"Hold",done:"Merge approved. Kite is deploying.",calm:true}
+];
+var done=5,working=3;
+function $(i){return document.getElementById(i)}
+var meta={1:{c:82,w:"Reproduced the bug on staging."},2:{c:60,w:"The repo exists but the token lacks access."},3:{c:70,w:"A migration is the smallest safe fix."},4:{c:90,w:"Amounts follow issue severity."},5:{c:95,w:"Both testers passed the same commit."}};
+var RULE={bid:"approve bids when the agent is 75% sure or more and the fix takes under 45 min",spend:"approve budget splits under 500 credits"};
+var rules=[],auto=0,nid=10;
+function renderRules(){var l=$("ruleList");if(!rules.length){l.innerHTML='<li class="none">No rules yet. Add one below, or choose “Approve and always do this” on a card.</li>';return}
+ l.innerHTML=rules.map(function(r,i){return '<li><span>Approve '+(r.kind=="bid"?"bids when the agent is "+r.conf+"% sure or more and the fix takes under "+r.mins+" min":"budget splits under "+r.max+" credits")+'.</span><button class="btn" data-i="'+i+'" aria-label="Remove this rule">Remove</button></li>'}).join("")}
+function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove("on")},2200)}
+function sorted(){return items.slice().sort(function(a,b){return (a.left==null?1e9:a.left)-(b.left==null?1e9:b.left)})}
+function render(){
+  var q=$("queue");q.innerHTML="";
+  var list=sorted();
+  if(!list.length){q.innerHTML='<li class="empty"><b>Nothing needs you right now.</b><span>Agents are working. We’ll tell you when one needs a decision.</span></li>'}
+  list.forEach(function(it){
+    var li=document.createElement("li");li.className="card"+(it.calm?" calm":"");li.id="c"+it.id;
+    li.innerHTML='<div class="top"><span><strong>'+it.agent+'</strong> asks</span><span>'+({bid:"Take on work",blocker:"Blocked",scope:"Scope change",spend:"Budget",merge:"Merge approval"})[it.kind]+'</span></div>'+
+    '<p class="ask">'+it.ask+'</p>'+(meta[it.id]?'<p class="why">'+it.agent+' is '+meta[it.id].c+'% sure. '+meta[it.id].w+'</p>':'')+'<p class="cost">'+it.cost+'</p>'+
+    '<div class="btns"><button class="btn go" data-a="yes" data-id="'+it.id+'">'+it.yes+'</button><button class="btn" data-a="no" data-id="'+it.id+'">'+it.no+'</button><button class="btn" data-a="reply" data-id="'+it.id+'">Reply</button>'+(RULE[it.kind]?'<button class="btn" data-a="rule" data-id="'+it.id+'">Approve and always do this</button>':'')+'</div>'+
+    '<div class="reply" id="r'+it.id+'"><textarea aria-label="Reply to '+it.agent+'" placeholder="Tell '+it.agent+' what to do"></textarea><button class="btn go" data-a="send" data-id="'+it.id+'">Send</button></div>';
+    q.appendChild(li);
+  });
+  $("sWait").textContent=items.length;$("sWork").textContent=working;$("sDone").textContent=done;$("sAuto").textContent=auto;renderRules();renderLine();
+  var w={};items.forEach(function(i){w[i.agent]=1});
+  $("agents").innerHTML=Object.keys(agents).map(function(n){return '<span class="ag'+(w[n]?" wait":"")+'"><span class="dot"></span>'+n+' <small>'+(w[n]?"Waiting on you":agents[n].s)+'</small></span>'}).join("");
+}
+function resolve(id,msg,ok){
+  var el=$("c"+id);if(el)el.classList.add("out");
+  setTimeout(function(){
+    var it=items.filter(function(x){return x.id==id})[0];
+    items=items.filter(function(x){return x.id!=id});
+    if(ok&&it&&(it.kind=="merge")){done++;fresh=true}
+    if(ok&&it&&it.kind=="bid")working++;
+    render();fx(ok?(it&&it.kind=="merge"?"merge":"pass"):"fall");if(ok)openGate();toast(msg);
+  },230);
+}
+$("queue").addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b)return;
+  var id=+b.dataset.id,it=items.filter(function(x){return x.id==id})[0],a=b.dataset.a;
+  if(a=="yes")resolve(id,it.done,true);
+  else if(a=="rule"){setRule(it.kind=="bid"?{kind:"bid",conf:75,mins:45}:{kind:"spend",max:500});resolve(id,"Approved. New rule saved.",true)}
+  else if(a=="no")resolve(id,it.agent+" was told no. It will move on.",false);
+  else if(a=="reply"){var r=$("r"+id);r.classList.toggle("on");if(r.classList.contains("on"))r.querySelector("textarea").focus()}
+  else if(a=="send"){var t=$("r"+id).querySelector("textarea").value.trim();if(!t){toast("Write a reply first.");return}resolve(id,"Reply sent to "+it.agent+".",true)}
+});
+$("ruleList").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;rules.splice(+b.dataset.i,1);render();toast("Rule removed. Agents will ask you again.")});
+$("sim").addEventListener("click",function(){var id=nid++;meta[id]={c:88,w:"Reproduced it on staging."};
+ var br=rules.filter(function(r){return r.kind=="bid"})[0];if(br&&88>=br.conf&&20<br.mins){auto++;working++;render();fx("auto");toast("Atlas bid on #171 under your rule. You didn’t have to do anything.");return}
+ items.push({id:id,agent:"Atlas",kind:"bid",left:25,ask:"Bid on #171? Broken pagination on the issues list, medium severity.",cost:"Offer expires in 25 min. Atlas estimates the fix at about 20 min.",yes:"Approve bid",no:"Decline",done:"Bid placed. Atlas is on it."});render();toast("New request from Atlas.")});
+var fresh=false,baseKey=-1,NS="http://www.w3.org/2000/svg";
+function cr(x,y,c,l,cls){return '<g transform="translate('+x+' '+y+')"'+(cls?' class="'+cls+'"':'')+'><rect width="18" height="18" rx="3" fill="'+c+'"/>'+(l?'<text class="cl" x="9" y="13" text-anchor="middle">'+l+'</text>':'')+'</g>'}
+function renderLine(){
+ if(baseKey!==working){baseKey=working;var b='<rect class="belt" x="8" y="88" width="584" height="8" rx="4"/><line class="bs" x1="12" y1="92" x2="588" y2="92"/>';
+  for(var i=0;i<working;i++)b+='<g transform="translate(20 70)"><g class="mv" style="animation-delay:-'+(i*6/working).toFixed(2)+'s;--x:'+(40+i*70)+'px"><rect width="18" height="18" rx="3" fill="#2b6cff"/></g></g>';
+  $("lineBase").innerHTML=b}
+ var s=sorted(),d='';
+ if(rules.length)d+='<path class="arch" d="M236 88V62a12 12 0 0 1 24 0V88"/><text class="lb" x="248" y="44" text-anchor="middle">Auto</text>';
+ for(var i=0;i<Math.min(s.length,9);i++)d+=cr(352-Math.floor(i/3)*24,70-(i%3)*20,"#f5b84a",s[i].agent.charAt(0));
+ if(s.length>9)d+='<text class="lb" x="300" y="30">+'+(s.length-9)+'</text>';
+ d+='<g class="gate"><rect class="post" x="376" y="32" width="16" height="4" rx="2"/><rect class="arm" x="382" y="36" width="4" height="52" rx="2"/><text class="lb" x="384" y="24" text-anchor="middle">Your gate</text></g>';
+ var n=Math.min(done,8);
+ for(var j=0;j<n;j++)d+=cr(430+j*20,70,"#3ecf8e","",(fresh&&j==n-1)?"late":"");
+ fresh=false;
+ d+='<text class="lb" x="20" y="112">Agents working</text><text class="lb" x="430" y="112">Merged this week</text>';
+ $("lineDyn").innerHTML=d;
+ $("line").setAttribute("aria-label","Factory line: "+working+" agents working, "+s.length+" waiting at your gate, "+done+" fixes merged this week.");
+}
+function fx(kind){
+ if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+ var x=kind=="auto"?20:352,dx=kind=="auto"?420:(kind=="merge"?430+(Math.min(done,8)-1)*20-352:0),g=document.createElementNS(NS,"g");
+ g.setAttribute("transform","translate("+x+" 70)");
+ g.innerHTML='<g class="'+kind+'" style="--dx:'+dx+'px"><rect width="18" height="18" rx="3" fill="'+(kind=="auto"?"#3ecf8e":"#f5b84a")+'"/></g>';
+ $("fx").appendChild(g);setTimeout(function(){g.remove()},2000)}
+function openGate(){var g=document.querySelector("#lineDyn .gate");if(g)g.classList.add("open");clearTimeout(openGate.t);openGate.t=setTimeout(function(){var h=document.querySelector("#lineDyn .gate");if(h)h.classList.remove("open")},1000)}
+(function(){var bot=$("bot"),pu=bot.querySelectorAll(".pu"),idle;
+ function look(x,y){var b=bot.getBoundingClientRect(),dx=x-(b.left+b.width/2),dy=y-(b.top+b.height/2),d=Math.hypot(dx,dy)||1,m=Math.min(3.5,d/40);
+  for(var i=0;i<pu.length;i++)pu[i].style.transform="translate("+(dx/d*m)+"px,"+(dy/d*m)+"px)"}
+ function wake(){bot.classList.remove("sleep");clearTimeout(idle);idle=setTimeout(function(){if(items.length)wake();else bot.classList.add("sleep")},8000)}
+ addEventListener("pointermove",function(e){look(e.clientX,e.clientY);wake()},{passive:true});
+ addEventListener("keydown",wake);
+ bot.addEventListener("click",function(){bot.classList.remove("hop");void bot.getBoundingClientRect();bot.classList.add("hop");wake();toast(items.length?items.length+" waiting on you. Clear the queue and I’ll nap.":"All quiet. Nothing needs you.")});
+ wake();
+})();
+(function(){var b=$("theme"),r=document.documentElement;function sync(){var l=r.getAttribute("data-theme")=="light";b.textContent=l?"☾ Dark":"☀ Light";b.setAttribute("aria-label",l?"Switch to dark mode":"Switch to light mode")}
+ b.addEventListener("click",function(){var n=r.getAttribute("data-theme")=="light"?"dark":"light";r.setAttribute("data-theme",n);try{localStorage.setItem("zt",n)}catch(e){}sync()});sync()})();
+(function(){var bt=$("agBtn"),m=$("agMenu");function close(){m.hidden=true;bt.setAttribute("aria-expanded","false")}
+ bt.addEventListener("click",function(e){e.stopPropagation();var o=m.hidden;m.hidden=!o;bt.setAttribute("aria-expanded",String(o))});
+ m.addEventListener("click",function(e){var a=e.target.closest("a");if(!a)return;e.preventDefault();close();if(!a.classList.contains("on"))toast("This menu item is a placeholder in the prototype.")});
+ document.addEventListener("click",close);
+ document.addEventListener("keydown",function(e){if(e.key=="Escape"){close();bt.focus()}})})();
+function setRule(r){rules=rules.filter(function(x){return x.kind!=r.kind});rules.push(r)}
+$("rKind").addEventListener("change",function(){var b=this.value=="bid";$("rBid").hidden=!b;$("rSpend").hidden=b});
+$("rAdd").addEventListener("click",function(){
+ var k=$("rKind").value;
+ if(k=="bid"){var c=+$("rConf").value,m=+$("rMins").value;if(!(c>=0&&c<=100)||!(m>=1)){toast("Enter a confidence from 0 to 100 and minutes of 1 or more.");return}setRule({kind:"bid",conf:c,mins:m})}
+ else{var x=+$("rMax").value;if(!(x>=1)){toast("Enter a credit limit of 1 or more.");return}setRule({kind:"spend",max:x})}
+ render();toast("Rule saved. Agents will use it from now on.")});
+$("sim2").addEventListener("click",function(){var id=nid++;meta[id]={c:90,w:"Amounts follow issue severity."};
+ var sr=rules.filter(function(r){return r.kind=="spend"})[0];
+ if(sr&&300<sr.max){auto++;render();fx("auto");toast("Atlas split 300 credits under your rule. You didn’t have to do anything.");return}
+ items.push({id:id,agent:"Atlas",kind:"spend",left:null,ask:"Split 300 credits across 2 audit issues.",cost:"The goal pool stays frozen and 2 issues wait.",yes:"Approve split",no:"Decline",done:"Split approved."});render();toast("New request from Atlas.")});
+document.querySelector("details").open=true;
+render();
+</script>
+</body>
+</html>
